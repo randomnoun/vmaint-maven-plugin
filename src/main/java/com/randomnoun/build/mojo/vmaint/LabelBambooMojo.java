@@ -32,7 +32,7 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
- * Maven goal which labels the current bamboo build with the current project's maven version
+ * Maven goal which labels the current bamboo build with the version in that build's pom.xml file
  * (in the form "maven-{version}", eg "maven-0.0.1-SNAPSHOT").
  * 
  * <p>You should probably run this goal before any others, so that even failed builds are labelled
