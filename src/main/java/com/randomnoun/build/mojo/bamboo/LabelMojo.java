@@ -181,7 +181,7 @@ public class LabelMojo
     	String bambooPlanKey = bambooBuildKey.substring(0, bambooBuildKey.lastIndexOf("-")); 
     	
     	// I'm trying to do the equivalent of this:
-    	// curl -v -X POST --user knoxg:abc123 "bamboo.dev.randomnoun:8085/bamboo/rest/api/latest/result/RANDOMNOUN-AFTERNOONWEB-32/label" 
+    	// curl -v -X POST --user knoxg:supersecretpassword "bamboo.dev.randomnoun:8085/bamboo/rest/api/latest/result/RANDOMNOUN-AFTERNOONWEB-32/label" 
     	//      -d '{ "name" : "maven-0.0.3-SNAPSHOT" }' -H "Content-type: application/json"
     	
     	try {
@@ -205,13 +205,11 @@ public class LabelMojo
     		getLog().info("     " + body);  
     		PostMethod postMethod = new PostMethod(url);
     		postMethod.setDoAuthentication(true);
-    		//postMethod.setRequestHeader("Authorization", "Basic somebase64jibberish");
     		postMethod.setRequestHeader("Content-type", "application/json");
-    		
-    		//postMethod.setRequestBody(body); // deprecated
     		postMethod.setRequestEntity(new StringRequestEntity(body));
     		client.executeMethod(postMethod);
-    		// normally returns 204 No Content, but going to accept 200 as well
+
+    		// normally returns 204 No Content, but I'm going to accept 200 as well
     		if (postMethod.getStatusCode()!=200 && postMethod.getStatusCode()!=204) {
     			throw new MojoExecutionException("Bamboo return status code " + postMethod.getStatusCode() + 
     		      ", body='" + postMethod.getResponseBodyAsString() + "'");
