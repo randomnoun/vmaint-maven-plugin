@@ -71,9 +71,11 @@ This allows bamboo integration with other systems that use maven version numbers
         <artifactId>commons-httpclient</artifactId>
         <version>3.0.1</version>
     </dependency>
-      
-      
-  </dependencies>
+ </dependencies>
+  <scm>
+     <connection>scm:cvs:pserver:vmaint@cvs.dev.randomnoun:/randomnoun:vmaint-maven-plugin</connection>
+     <developerConnection>scm:cvs:pserver:vmaint@cvs.dev.randomnoun:/randomnoun:vmaint-maven-plugin</developerConnection>
+  </scm>
   <distributionManagement>
     <repository>
         <id>releases</id>
