@@ -112,11 +112,10 @@ public class LabelBambooMojo
         throws MojoExecutionException
     {
     	
-    	// these are plugin properties, which isn't a great place for auth data
+    	// the following line would use plugin properties, rather than project properties
     	// Properties mavenProperties = getMavenSession().getExecutionProperties();
     	
     	// these can be set in a per-user settings.xml file (i.e. on the bamboo server)
-    	// @TODO change these to bamboo.restUrl to comply with other password keys (e.g. cvs.whatever, svn.whatever)
     	Properties mavenProperties = project.getProperties();
     	String bambooRestUrlOverride = mavenProperties.getProperty("bamboo.rest.url");
     	if (bambooRestUrlOverride!=null) { 
