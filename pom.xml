@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.randomnoun.build</groupId>
   <artifactId>vmaint-maven-plugin</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Bamboo label maven plugin</name>
   <description>Should be run at the beginning of a build when run on the bamboo build server.
@@ -74,7 +74,6 @@ This allows bamboo integration with other systems that use maven version numbers
   <scm>
      <connection>scm:cvs:pserver:vmaint@cvs.dev.randomnoun:/randomnoun:vmaint-maven-plugin</connection>
      <developerConnection>scm:cvs:pserver:vmaint@cvs.dev.randomnoun:/randomnoun:vmaint-maven-plugin</developerConnection>
-    <tag>vmaint-maven-plugin-1_0_0</tag>
   </scm>
   <distributionManagement>
     <repository>
