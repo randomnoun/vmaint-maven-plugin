@@ -1,20 +1,11 @@
 package com.randomnoun.build.mojo.vmaint;
 
-/*
- * Copyright 2001-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/* Once I decide what software licence I'm going to use, 
+ * then the licence declaration text would go here. 
+ * 
+ * In the meantime, let's just pretend that there isn't one.
  */
+
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -38,8 +29,7 @@ import java.util.Properties;
  * <p>You should probably run this goal before any others, so that even failed builds are labelled
  * with the mvn version of the build.
  * 
- * <p>The following maven properties are used; these should be common across all mvn projects,
- * so you may wish to place them in your projects' parent pom.xml file.
+ * <p>The following maven properties are used:
  * 
  * <p>The 'bamboo.rest.url' maven property will be used to determine the URL of the bamboo REST API
  * <p>The 'bamboo.rest.username' and 'bamboo.rest.password' properties will be used to authenticate to the 
@@ -62,13 +52,13 @@ import java.util.Properties;
  * you're using a build.properties file in your project. That sentence will make sense, incidentally,
  * if you think Atlassian creates intuitive build systems.
  * 
- * <p>Speaking of which, it's entirely possible that this could be written using a Bamboo plugin 
- * rather than a maven plugin, but I've tried using the Atlassian SDK before, and I think that this 
- * will be an astonishingly more efficient way of going about this. Which is saying something, 
- * considering my general loathing of maven.
- *
  * <p>Bamboo unhelpfully lowercases labels, so the label "maven-0.0.1-SNAPSHOT" will appear as 
  * "maven-0.0.1-snapshot" .
+ *
+ * <p>Also, some maven build failure types (e.g. missing dependencies) will prevent the 
+ * the failed build from being labelled in bamboo. There are some who would say that
+ * you could put the labelling goal into a separate bamboo task to prevent this, but they 
+ * would be the sort of people who think that that would be a good idea.
  *
  * @goal label-bamboo
  */
@@ -101,16 +91,6 @@ public class LabelBambooMojo
      */
     private MavenSession mavenSession;
 
-    /*
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        if (skipMojo()) {
-            return;
-        }
-        executeMojo();
-    }
-    */
-    
-    
 	/**
      * @parameter expression="${label.bamboo.rest.url}"
      */
@@ -177,11 +157,10 @@ public class LabelBambooMojo
     	// bambooBuildPlanName=RANDOMNOUN - ns-web - Default Job
     	
         // so I'm removing the last hyphenated component from the build key to get the plan key.
-    	// lets hope you can't have hyphens in job keys.
     	String bambooPlanKey = bambooBuildKey.substring(0, bambooBuildKey.lastIndexOf("-")); 
     	
-    	// I'm trying to do the equivalent of this:
-    	// curl -v -X POST --user knoxg:supersecretpassword "bamboo.dev.randomnoun:8085/bamboo/rest/api/latest/result/RANDOMNOUN-AFTERNOONWEB-32/label" 
+    	// The following code is the equivalent of this:
+    	// /usr/bin/curl -v -X POST --user knoxg:supersecretpassword "bamboo.dev.randomnoun:8085/bamboo/rest/api/latest/result/RANDOMNOUN-NSWEB-60/label" \ 
     	//      -d '{ "name" : "maven-0.0.3-SNAPSHOT" }' -H "Content-type: application/json"
     	
     	try {
