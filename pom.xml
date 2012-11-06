@@ -6,11 +6,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Bamboo label maven plugin</name>
-  <description>Should be run at the end of a successful build when run on the bamboo build server.
-Will label the current bamboo build (however the hell that's going to be determined) with the maven version number of the maven project just built.
-This will allow me to display version numbers on the apps.pl page against the latest build divs. Which I can certainly see being worth the effort required.
-  </description>
-  <url>http://maven.apache.org</url>
+  <description>Should be run at the beginning of a build when run on the bamboo build server.
+
+This plugin will label the current bamboo build with the maven version number of the maven project being built.
+
+This allows bamboo integration with other systems that use maven version numbers rather than bamboo builds to define the 'co-ordinates' of an artifact.</description>
+  <url>http://www.vmaint.com</url>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
