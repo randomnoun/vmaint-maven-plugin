@@ -1,11 +1,8 @@
 package com.randomnoun.build.mojo.vmaint;
 
-/* Once I decide what software licence I'm going to use, 
- * then the licence declaration text would go here. 
- * 
- * In the meantime, let's just pretend that there isn't one.
+/* (c) 2013 randomnoun. All Rights Reserved. This work is licensed under a
+ * Creative Commons Attribution 3.0 Unported License. (http://creativecommons.org/licenses/by/3.0/)
  */
-
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -61,6 +58,7 @@ import java.util.Properties;
  * would be the sort of people who think that that would be a good idea.
  *
  * @goal label-bamboo
+ * @blog http://www.randomnoun.com/wp/2012/11/07/putting-a-maven-version-label-on-a-bamboo-build/
  */
 public class LabelBambooMojo
     extends AbstractMojo
