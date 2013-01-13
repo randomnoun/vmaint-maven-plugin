@@ -11,6 +11,19 @@ This plugin will label the current bamboo build with the maven version number of
 
 This allows bamboo integration with other systems that use maven version numbers rather than bamboo builds to define the 'co-ordinates' of an artifact.</description>
   <url>http://www.vmaint.com</url>
+  <inceptionYear>2013</inceptionYear>
+  <organization>
+    <name>randomnoun</name>
+    <url>http://www.randomnoun.com</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>Creative Commons Attribution 3.0 Unported License</name>
+      <url>http://creativecommons.org/licenses/by/3.0/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
