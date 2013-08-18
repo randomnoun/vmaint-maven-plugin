@@ -1,3 +1,2 @@
 This file exists because CVS deletes directories that are empty during
-a cvs update, which will breaks the m2eclipse-generated build path 
-in eclipse
+a cvs update, which breaks the m2eclipse-generated build path in eclipse
