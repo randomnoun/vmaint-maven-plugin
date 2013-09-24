@@ -1,7 +1,7 @@
 package com.randomnoun.build.mojo.vmaint;
 
 /* (c) 2013 randomnoun. All Rights Reserved. This work is licensed under a
- * Creative Commons Attribution 3.0 Unported License. (http://creativecommons.org/licenses/by/3.0/)
+ * BSD Simplified License. (http://www.randomnoun.com/bsd-simplified.html)
  */
 
 import org.apache.commons.httpclient.HttpClient;
@@ -21,22 +21,22 @@ import java.util.Properties;
 
 /**
  * Maven goal which labels the current bamboo build with the version in that build's pom.xml file
- * (in the form "maven-{version}", eg "maven-0.0.1-SNAPSHOT").
+ * (in the form "<tt>maven-<i>{version}</i></tt>", eg "<tt>maven-0_0_1-snapshot</tt>").
  * 
  * <p>You should probably run this goal before any others, so that even failed builds are labelled
  * with the mvn version of the build.
  * 
  * <p>The following maven properties are used:
  * 
- * <p>The 'bamboo.rest.url' maven property will be used to determine the URL of the bamboo REST API
- * <p>The 'bamboo.rest.username' and 'bamboo.rest.password' properties will be used to authenticate to the 
+ * <p>The '<code>bamboo.rest.url</code>' maven property will be used to determine the URL of the bamboo REST API
+ * <p>The '<code>bamboo.rest.username</code>' and '<code>bamboo.rest.password</code>' properties will be used to authenticate to the 
  * Bamboo server. The password is in cleartext. Because I enjoy sanity.
  * 
- * <p>These should be specified in the /settings/profiles/profile/properties element 
- * of your .m2/settings.xml file, but will also work if specified in your pom.xml's project properties.
+ * <p>These should be specified in the <code>/settings/profiles/profile/properties</code> element 
+ * of your <code>.m2/settings.xml</code> file, but will also work if specified in your <code>pom.xml</code>'s project properties.
  * 
- * <p>The current bamboo project and plan will be determined using the 'bambooBuildKey', 
- * 'bambooBuildNumber' and 'bambooBuildPlanName' properties, which should be set using the following
+ * <p>The current bamboo project and plan will be determined using the '<code>bambooBuildKey</code>', 
+ * '<code>bambooBuildNumber</code>' and '<code>bambooBuildPlanName</code>' properties, which should be set using the following
  * command-line arguments to the bamboo mvn task: 
  *
  * <pre>
@@ -49,8 +49,8 @@ import java.util.Properties;
  * you're using a build.properties file in your project. That sentence will make sense, incidentally,
  * if you think Atlassian creates intuitive build systems.
  * 
- * <p>Bamboo unhelpfully lowercases labels, so the label "maven-0.0.1-SNAPSHOT" will appear as 
- * "maven-0.0.1-snapshot" .
+ * <p>Bamboo unhelpfully lowercases labels, so the label "<tt>maven-0.0.1-SNAPSHOT</tt>" will appear as 
+ * "<tt>maven-0_0_1-snapshot</tt>" .
  *
  * <p>Also, some maven build failure types (e.g. missing dependencies) will prevent the 
  * the failed build from being labelled in bamboo. There are some who would say that
