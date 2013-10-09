@@ -1,0 +1,148 @@
+<!-- this HTML file will be preprocessed by the Velocity template engine, which should replace
+     the project.groupId strings below
+-->
+#set( $repos = "http://central.maven.org/maven2/" )
+#set( $jarBasename = ${project.artifactId} + "-" + ${project.version} + ".jar" )
+#set( $srcBasename = ${project.artifactId} + "-" + ${project.version} + "-sources.jar" )
+#set( $url = ${project.groupId} )
+#set( $url = $url.replace(".", "/") )
+#set( $jarUrl = $repos + $url + "/" + ${project.artifactId} + "/" + ${project.version} + "/" + $jarBasename )
+#set( $srcUrl = $repos + $url + "/" + ${project.artifactId} + "/" + ${project.version} + "/" + $srcBasename )
+
+<h2>Overview</h2>
+
+<p>The <code>vmaint:label-bamboo</code> plugin allows a bamboo build to be labelled
+with the maven version number for that build. 
+
+<p>See the screenshot below for an example build.
+
+<hr/>
+
+<h2>Usage</h2>
+
+<p>To use this Maven project, configure it via the maven <code>settings.xml</code> file, 
+then reference it from the mvn command-line during a Bamboo build. 
+
+<pre>
+&lt;settings&gt;
+  ...
+  <b>&lt;pluginGroups&gt;
+    &lt;!-- this plugin group allows us to run 
+      mvn vmaint:label-bamboo
+    rather than 
+      mvn com.randomnoun.build:vmaint-maven-plugin:label-bamboo
+    --&gt;         
+    &lt;pluginGroup&gt;com.randomnoun.build&lt;/pluginGroup&gt;
+  &lt;/pluginGroups&gt;</b>
+  ...
+  &lt;!-- mirrors section here --&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;default&lt;/id&gt;
+      ...      
+      &lt;!-- reposities section here --&gt;
+      &lt;!-- plugin repositories section here --&gt;
+      &lt;properties&gt;
+        &lt;!-- dot-separated maven property naming convention --&gt;
+        <b>&lt;bamboo.rest.url&gt;http://my-bamboo-server/bamboo/rest&lt;/bamboo.rest.url&gt;  
+        &lt;bamboo.rest.username&gt;my-bamboo-username&lt;/bamboo.rest.username&gt;  
+        &lt;bamboo.rest.password&gt;my-bamboo-password&lt;/bamboo.rest.password&gt;</b>  
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+    ...
+    &lt;!-- repeat properties section in any other profiles used by bamboo --&gt;
+    ...
+  &lt;/profiles&gt;
+  ...  
+  &lt;activeProfiles&gt;
+    &lt;activeProfile&gt;default&lt;/activeProfile&gt;
+  &lt;/activeProfiles&gt;
+  ...
+  &lt;!-- servers section here --&gt;
+  ...
+&lt;/settings&gt;
+</pre>
+
+<h2>Download</h2>
+
+<p>If you wish to manually download and install this plugin, you can download the binary and source JARs using these links:</p>
+
+<!-- 
+  Using P element's here because doxia doesn't work well with DIVs. 
+  Can't nest P elements, unfortunately, hence the weird sup/sub element formatting here. 
+-->
+<p class="download-button"><a href="${jarUrl}"><img width="41" height="40" style="margin: 5px; float:left;" src="images/download-arrow.png"></img></a>
+<sup class="big"><a href="${jarUrl}">Download compiled JAR</a></sup>
+<sub class="small"><a href="${jarUrl}">${jarBasename}</a></sub>
+</p>
+
+<p class="download-button"><a href="${srcUrl}"><img width="41" height="40" style="margin: 5px; float:left;" src="images/download-arrow.png"></img></a>
+<sup class="big"><a href="${srcUrl}">Download source JAR</a></sup>
+<sub class="small"><a href="${srcUrl}">${srcBasename}</a></sub>
+</p>
+
+<p>and then install into your local repository using the command:
+
+<pre>
+C:> <b>c:\java\prog\apache-maven-3.0.4\bin\mvn deploy:deploy-file 
+  -Durl=http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/ 
+  -DrepositoryId=releases -Dfile=vmaint-maven-plugin-1.0.0.jar 
+  -DgroupId=com.randomnoun.build -DartifactId=vmaint-maven-plugin 
+  -Dversion=${project.version} -Dpackaging=jar -DgeneratePom=false</b>
+
+C:> <b>c:\java\prog\apache-maven-3.0.4\bin\mvn deploy:deploy-file 
+  -Durl=http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/ 
+  -DrepositoryId=releases -Dfile=vmaint-maven-plugin-1.0.0-sources.jar 
+  -DgroupId=com.randomnoun.build -DartifactId=vmaint-maven-plugin 
+  -Dversion=${project.version} -Dpackaging=java-source -DgeneratePom=false</b>
+</pre>
+
+
+<p>The green download buttons above link to the <a href="${repos}">maven central repository</a>
+
+<hr/>
+
+<h2>Example output</h2>
+
+<p>Once configured in Bamboo, you should see a label attached to each build containing
+the maven version numbers of that build. 
+
+<p><img style="margin: 5px;" src="images/bamboo-label3.png"></img>
+
+<h2>Bamboo task example</h2>
+
+<p>So each project in bamboo has plans, and each plan has stages, and each stage has jobs, 
+and each job has tasks. If you’re anything like me, then there’s only one stage with 
+one job with one task, which is something like ‘Maven build’.
+
+<p>What you want in your Maven bamboo task is the following goal settings:
+
+<p><img style="margin: 5px;" src="images/bamboo-labeltask.png"></img>
+
+<pre>
+-B  vmaint:label-bamboo clean deploy 
+"-DbambooBuildKey=${bamboo.buildKey}" 
+"-DbambooBuildNumber=${bamboo.buildNumber}" 
+"-DbambooBuildPlanName=${bamboo.buildPlanName}" 
+</pre>
+
+<p>The <code>-B</code> denotes a batch (non-interactive) build; this prevents maven from displaying
+ progress percentages when uploading files, which can otherwise fill the build log files.
+
+<p>I sometimes put <code>-U</code> here as well to force maven to update any referenced snapshot 
+artifacts from the artifact repository, but don’t have it on this build for some reason.
+
+<p>The <code>vmaint:label-bamboo</code> goal triggers the bamboo label, and the <code>clean</code> 
+and <code>deploy</code> goals perform a standard maven clean, compile, build, test, install 
+and deploy cycle.
+
+<p>The other parameters pass bamboo build information through to the maven plugin using the
+<a href="https://confluence.atlassian.com/display/BAMBOO/Using+global,+plan+or+build-specific+variables">bamboo 
+variable substitution mechanism</a>.
+
+For more information, see the <a href="http://www.randomnoun.com/wp/2012/11/07/putting-a-mave…a-bamboo-build/">randomnoun blog post</a> on this topic.
+
+<!--
+Kind of hoping that this works
+-->
