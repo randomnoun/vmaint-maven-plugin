@@ -82,19 +82,19 @@ then reference it from the mvn command-line during a Bamboo build.
 <sub class="small"><a href="${srcUrl}">${srcBasename}</a></sub>
 </p>
 
-<p>and then install into your local repository using the command:
+<p>and then install into your nexus repository using the command:
 
 <pre>
 C:> <b>c:\java\prog\apache-maven-3.0.4\bin\mvn deploy:deploy-file 
-  -Durl=http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/ 
-  -DrepositoryId=releases -Dfile=vmaint-maven-plugin-1.0.0.jar 
-  -DgroupId=com.randomnoun.maven.plugins -DartifactId=vmaint-maven-plugin 
+  -Durl=http://your-nexus-repository:8082/nexus/content/repositories/releases/ 
+  -DrepositoryId=releases -Dfile=vmaint-maven-plugin-${project.version}.jar 
+  -DgroupId=${project.groupId} -DartifactId=${project.artifactId} 
   -Dversion=${project.version} -Dpackaging=jar -DgeneratePom=false</b>
 
 C:> <b>c:\java\prog\apache-maven-3.0.4\bin\mvn deploy:deploy-file 
-  -Durl=http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/ 
-  -DrepositoryId=releases -Dfile=vmaint-maven-plugin-1.0.0-sources.jar 
-  -DgroupId=com.randomnoun.maven.plugins -DartifactId=vmaint-maven-plugin 
+  -Durl=http://your-nexus-repository:8082/nexus/content/repositories/releases/ 
+  -DrepositoryId=releases -Dfile=vmaint-maven-plugin-${project.version}-sources.jar 
+  -DgroupId=${project.groupId} -DartifactId=${project.artifactId} 
   -Dversion=${project.version} -Dpackaging=java-source -DgeneratePom=false</b>
 </pre>
 
