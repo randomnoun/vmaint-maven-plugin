@@ -1,109 +1,315 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.randomnoun.build</groupId>
-  <artifactId>vmaint-maven-plugin</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
-  <packaging>maven-plugin</packaging>
-  <name>Bamboo label maven plugin</name>
-  <description>Should be run at the beginning of a build when run on the bamboo build server.
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.randomnoun.build</groupId>
+	<artifactId>vmaint-maven-plugin</artifactId>
+	<version>1.0.2-SNAPSHOT</version>
+	<packaging>maven-plugin</packaging>
+	<description>Should be run at the beginning of a build when run on the bamboo build server.
 
 This plugin will label the current bamboo build with the maven version number of the maven project being built.
 
 This allows bamboo integration with other systems that use maven version numbers rather than bamboo builds to define the 'co-ordinates' of an artifact.</description>
-  <url>http://www.vmaint.com</url>
-  <inceptionYear>2013</inceptionYear>
-  <organization>
-    <name>randomnoun</name>
-    <url>http://www.randomnoun.com</url>
-  </organization>
-  <licenses>
-    <license>
-      <name>Creative Commons Attribution 3.0 Unported License</name>
-      <url>http://creativecommons.org/licenses/by/3.0/</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-api</artifactId>
-      <version>2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
-      <version>2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-settings</artifactId>
-      <version>2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-descriptor</artifactId>
-      <version>2.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-project</artifactId>
-      <version>3.0-alpha-2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-core</artifactId>
-      <version>2.0</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.shared</groupId>
-      <artifactId>maven-filtering</artifactId>
-      <version>1.0-beta-4</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>2.0.5</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-        <groupId>commons-httpclient</groupId>
-        <artifactId>commons-httpclient</artifactId>
-        <version>3.0.1</version>
-    </dependency>
- </dependencies>
-  <scm>
-     <connection>scm:cvs:pserver:vmaint@cvs.dev.randomnoun:/randomnoun:vmaint-maven-plugin</connection>
-     <developerConnection>scm:cvs:pserver:vmaint@cvs.dev.randomnoun:/randomnoun:vmaint-maven-plugin</developerConnection>
-  </scm>
-  <distributionManagement>
-    <repository>
-        <id>releases</id>
-        <name>randomnoun releases</name>
-        <url>http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/</url>
-    </repository>
-    <snapshotRepository>
-        <id>snapshots</id>
-        <name>randomnoun snapshots</name>
-        <url>http://nexus.dev.randomnoun:8082/nexus/content/repositories/snapshots/</url>
-        <uniqueVersion>false</uniqueVersion>
-    </snapshotRepository>
-  </distributionManagement>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    
-    </properties>
-  
+	<url>http://www.vmaint.com</url>
+	<name>Bamboo label maven plugin</name>
+	<inceptionYear>2013</inceptionYear>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-artifact</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-settings</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-descriptor</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>3.0-alpha-2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>2.0</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.shared</groupId>
+			<artifactId>maven-filtering</artifactId>
+			<version>1.0-beta-4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>2.0.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+	</dependencies>
+	<scm>
+		<connection>scm:cvs:pserver:anonymous@cvs.randomnoun.com:/randomnoun:vmaint-maven-plugin</connection>
+		<developerConnection>scm:cvs:pserver:vmaint@cvs.randomnoun.com:/randomnoun:vmaint-maven-plugin</developerConnection>
+		<url>http://cvs.randomnoun.com/cvsweb/cvsweb.cgi/vmaint-maven-plugin</url>
+	</scm>
+
+	<issueManagement>
+		<system>jira</system>
+		<url>http://jira.dev.randomnoun/VMAINTMAVENPLUGIN</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Bamboo</system>
+		<url>http://bamboo.dev.randomnoun:8085/bamboo/browse/RANDOMNOUN-VMAINTMAVENPLUGIN</url>
+	</ciManagement>
+	<licenses>
+		<license>
+			<name>Simplified BSD License</name>
+			<url>http://www.randomnoun.com/licences/bsd-simplified.txt</url>
+			<distribution>repo</distribution>
+			<comments>Simplified BSD License (BSD 2-clause license).</comments>
+		</license>
+	</licenses>
+	<mailingLists>
+		<mailingList>
+			<name>vmaint-maven-plugin Mailing List</name>
+			<subscribe>vmaint-maven-plugin-subscribe@lists.randomnoun.com</subscribe>
+			<unsubscribe>vmaint-maven-plugin-unsubscribe@lists.randomnoun.com</unsubscribe>
+			<post>vmaint-maven-plugin@lists.randomnoun.com</post>
+			<archive>http://lists.randomnoun.com/pipermail/vmaint-maven-plugin/</archive>
+		</mailingList>
+		<!-- TODO: a generic announcements / notifications list -->
+	</mailingLists>
+	<organization>
+		<name>randomnoun</name>
+		<url>http://www.randomnoun.com</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>knoxg</id>
+			<name>Greg Knox</name>
+			<email>knoxg@randomnoun.com</email>
+			<organization>randomnoun</organization>
+			<organizationUrl>http://www.randomnoun.com</organizationUrl>
+			<roles>
+				<role>Software Gazelle</role>
+			</roles>
+			<timezone>+10</timezone>
+			<properties>
+				<picUrl>http://www.gravatar.com/avatar/10b6f00fa8d70d6f4e042558a9433086.jpg?s=32</picUrl>
+			</properties>
+		</developer>
+	</developers>
+
+	<build>
+		<finalName>vmaint-maven-plugin</finalName>
+
+		<!-- Build with Java 1.6 -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.2</version>
+					<dependencies>
+						<dependency>
+							<groupId>lt.velykis.maven.skins</groupId>
+							<artifactId>reflow-velocity-tools</artifactId>
+							<version>1.0.0</version>
+						</dependency>
+						<!-- Reflow skin requires Velocity >= 1.7 -->
+						<dependency>
+							<groupId>org.apache.velocity</groupId>
+							<artifactId>velocity</artifactId>
+							<version>1.7</version>
+						</dependency>
+						<dependency>
+							<groupId>com.randomnoun.maven.doxia</groupId>
+							<artifactId>doxia-module-html</artifactId>
+							<version>1.1.0</version>
+						</dependency>
+						<dependency>
+							<!-- add support for ssh/scp -->
+							<groupId>org.apache.maven.wagon</groupId>
+							<artifactId>wagon-ssh</artifactId>
+							<version>1.0</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<!-- The performRelease profile is automatically included when performing 
+		releases. Don't forget to install the appropriate version of gpg.exe, and 
+		include the -Darguments=-Dgpg.passphrase=PASSPHRASE -Dgpg.passphrase=PASSPHRASE 
+		command-line options when releasing, as per https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven 
+		unless that doesn't work, in which case updating settings.xml instead, as 
+		per http://stackoverflow.com/questions/14114528/avoid-gpg-signing-prompt-when-using-maven-release-plugin -->
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<stylesheetfile>${project.basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+					<javadocDirectory>${project.basedir}/src/main/javadoc</javadocDirectory>
+					<docfilessubdirs>true</docfilessubdirs>
+					<author>true</author>
+					<linksource>true</linksource>
+					<show>private</show>
+					<tags>
+                        <tag>
+                            <name>blog</name>
+                            <placement>a</placement>
+                            <head>Blog URL</head>
+                        </tag>
+                        <tag>
+                            <name>goal</name>
+                            <placement>t</placement>
+                            <head>Maven goal</head>
+                        </tag>
+                        <tag>
+                            <name>parameter</name>
+                            <placement>f</placement>
+                            <head>Mojo Parameter</head>
+                        </tag>
+                    </tags>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc</report>
+							<report>test-javadoc</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.16</version>
+				<configuration>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<linkJavadoc>true</linkJavadoc>
+					<javadocDir>target/site/apidocs</javadocDir>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</reporting>
+
+
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>randomnoun releases</name>
+			<url>http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>randomnoun snapshots</name>
+			<url>http://nexus.dev.randomnoun:8082/nexus/content/repositories/snapshots/</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+		<site>
+			<id>site</id>
+			<name>vmaint-maven-plugin Website</name>
+			<!-- this will be externally visible at http://code.randomnoun.com/vmaint-maven-plugin -->
+			<url>scp://code.randomnoun.com/var/www/code.randomnoun.com/vmaint-maven-plugin/</url>
+		</site>
+
+	</distributionManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+	</properties>
+
 </project>
