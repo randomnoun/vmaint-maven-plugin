@@ -88,13 +88,13 @@ then reference it from the mvn command-line during a Bamboo build.
 C:> <b>c:\java\prog\apache-maven-3.0.4\bin\mvn deploy:deploy-file 
   -Durl=http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/ 
   -DrepositoryId=releases -Dfile=vmaint-maven-plugin-1.0.0.jar 
-  -DgroupId=com.randomnoun.build -DartifactId=vmaint-maven-plugin 
+  -DgroupId=com.randomnoun.maven.plugins -DartifactId=vmaint-maven-plugin 
   -Dversion=${project.version} -Dpackaging=jar -DgeneratePom=false</b>
 
 C:> <b>c:\java\prog\apache-maven-3.0.4\bin\mvn deploy:deploy-file 
   -Durl=http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/ 
   -DrepositoryId=releases -Dfile=vmaint-maven-plugin-1.0.0-sources.jar 
-  -DgroupId=com.randomnoun.build -DartifactId=vmaint-maven-plugin 
+  -DgroupId=com.randomnoun.maven.plugins -DartifactId=vmaint-maven-plugin 
   -Dversion=${project.version} -Dpackaging=java-source -DgeneratePom=false</b>
 </pre>
 
