@@ -1,4 +1,4 @@
-package com.randomnoun.build.mojo.vmaint;
+package com.randomnoun.maven.plugin.vmaint;
 
 /* (c) 2013 randomnoun. All Rights Reserved. This work is licensed under a
  * BSD Simplified License. (http://www.randomnoun.com/bsd-simplified.html)
