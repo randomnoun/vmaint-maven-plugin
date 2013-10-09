@@ -30,9 +30,9 @@ then reference it from the mvn command-line during a Bamboo build.
     &lt;!-- this plugin group allows us to run 
       mvn vmaint:label-bamboo
     rather than 
-      mvn com.randomnoun.build:vmaint-maven-plugin:label-bamboo
+      mvn com.randomnoun.maven.plugins:vmaint-maven-plugin:label-bamboo
     --&gt;         
-    &lt;pluginGroup&gt;com.randomnoun.build&lt;/pluginGroup&gt;
+    &lt;pluginGroup&gt;com.randomnoun.maven.plugins&lt;/pluginGroup&gt;
   &lt;/pluginGroups&gt;</b>
   ...
   &lt;!-- mirrors section here --&gt;
