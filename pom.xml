@@ -74,9 +74,9 @@ This allows bamboo integration with other systems that use maven version numbers
 		</dependency>
 	</dependencies>
 	<scm>
-		<connection>scm:cvs:pserver:anonymous@cvs.randomnoun.com:/randomnoun:vmaint-maven-plugin</connection>
-		<developerConnection>scm:cvs:pserver:vmaint@cvs.randomnoun.com:/randomnoun:vmaint-maven-plugin</developerConnection>
-		<url>http://cvs.randomnoun.com/cvsweb/cvsweb.cgi/vmaint-maven-plugin</url>
+	<connection>scm:git:ssh://git@gitlab.dev.randomnoun:2222/randomnoun/vmaint-maven-plugin.git</connection>
+	<developerConnection>scm:git:ssh://git@gitlab.dev.randomnoun:2222/randomnoun/vmaint-maven-plugin.git</developerConnection>
+	<url>http://gitlab.dev.randomonun/randomnoun/vmaint-maven-plugin</url>
   </scm>
 
 	<issueManagement>
@@ -173,6 +173,37 @@ This allows bamboo integration with other systems that use maven version numbers
 				</plugin>
 
 
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-plugin-plugin
+										</artifactId>
+										<versionRange>
+											[3.2,)
+										</versionRange>
+										<goals>
+											<goal>descriptor</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -290,12 +321,12 @@ This allows bamboo integration with other systems that use maven version numbers
 		<repository>
 			<id>releases</id>
 			<name>randomnoun releases</name>
-			<url>http://nexus.dev.randomnoun:8082/nexus/content/repositories/releases/</url>
+			<url>http://nexus2.dev.randomnoun:8082/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>randomnoun snapshots</name>
-			<url>http://nexus.dev.randomnoun:8082/nexus/content/repositories/snapshots/</url>
+			<url>http://nexus2.dev.randomnoun:8082/nexus/content/repositories/snapshots/</url>
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 		<site>
