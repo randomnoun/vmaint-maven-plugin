@@ -73,19 +73,16 @@ This allows bamboo integration with other systems that use maven version numbers
 			<version>3.0.1</version>
 		</dependency>
 	</dependencies>
+	
 	<scm>
-	<connection>scm:git:ssh://git@gitlab.dev.randomnoun:2222/randomnoun/vmaint-maven-plugin.git</connection>
-	<developerConnection>scm:git:ssh://git@gitlab.dev.randomnoun:2222/randomnoun/vmaint-maven-plugin.git</developerConnection>
-	<url>http://gitlab.dev.randomnoun/randomnoun/vmaint-maven-plugin</url>
+		<connection>scm:git:http://gitlab.dev.randomnoun/randomnoun/vmaint-maven-plugin.git</connection>
+		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/vmaint-maven-plugin.git</developerConnection>
+		<url>http://gitlab.dev.randomnoun/randomnoun/vmaint-maven-plugin</url>
   </scm>
-
-	<issueManagement>
-		<system>jira</system>
-		<url>http://jira.dev.randomnoun/VMAINTMAVENPLUGIN</url>
-	</issueManagement>
+  
 	<ciManagement>
 		<system>Bamboo</system>
-		<url>http://bamboo.dev.randomnoun:8085/bamboo/browse/RANDOMNOUN-VMAINTMAVENPLUGIN</url>
+		<url>http://bamboo.dev.randomnoun/browse/RANDOMNOUN-VMAINTMAVENPLUGIN</url>
 	</ciManagement>
 	<licenses>
 		<license>
@@ -103,7 +100,6 @@ This allows bamboo integration with other systems that use maven version numbers
 			<post>vmaint-maven-plugin@lists.randomnoun.com</post>
 			<archive>http://lists.randomnoun.com/pipermail/vmaint-maven-plugin/</archive>
 		</mailingList>
-		<!-- TODO: a generic announcements / notifications list -->
 	</mailingLists>
 	<organization>
 		<name>randomnoun</name>
@@ -142,10 +138,11 @@ This allows bamboo integration with other systems that use maven version numbers
 					</configuration>
 				</plugin>
 
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.2</version>
+					<version>3.3</version>
 					<dependencies>
 						<dependency>
 							<groupId>lt.velykis.maven.skins</groupId>
@@ -163,14 +160,28 @@ This allows bamboo integration with other systems that use maven version numbers
 							<artifactId>doxia-module-html</artifactId>
 							<version>1.1.0</version>
 						</dependency>
-						<dependency>
-							<!-- add support for ssh/scp -->
-							<groupId>org.apache.maven.wagon</groupId>
-							<artifactId>wagon-ssh</artifactId>
-							<version>1.0</version>
-						</dependency>
 					</dependencies>
 				</plugin>
+
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.2.0</version>
+					<!-- 
+					  this configuration is used during the javadoc:jar goal during the release
+					  configuration for the reports is in the <reporting> section  
+					-->
+					<configuration>
+	                	<additionalparam>-Xdoclint:none</additionalparam>
+	                	<failOnError>false</failOnError>
+						<javadocDirectory>${project.basedir}/src/main/javadoc</javadocDirectory>
+						<docfilessubdirs>true</docfilessubdirs>
+						<author>true</author>
+						<linksource>true</linksource>
+					</configuration>
+				</plugin>
+		
 
 
 				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -244,36 +255,32 @@ This allows bamboo integration with other systems that use maven version numbers
 	</profiles>
 
 
-	<reporting>
+
+<reporting>
 		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+		          <webAccessUrl>https://github.com/randomnoun/vmaint-maven-plugin</webAccessUrl>
+		          <anonymousConnection>scm:git:ssh://git@github.com:randomnoun/vmaint-maven-plugin.git</anonymousConnection>
+		          <developerConnection>scm:git:ssh://git@github.com:randomnoun/vmaint-maven-plugin.git</developerConnection>
+		        </configuration>
+            </plugin>           
+        
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
+				<version>3.2.0</version>
 				<configuration>
+					<source>8</source>
+					<failOnError>false</failOnError>
 					<stylesheetfile>${project.basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
 					<javadocDirectory>${project.basedir}/src/main/javadoc</javadocDirectory>
 					<docfilessubdirs>true</docfilessubdirs>
 					<author>true</author>
 					<linksource>true</linksource>
-					<show>private</show>
-					<tags>
-                        <tag>
-                            <name>blog</name>
-                            <placement>a</placement>
-                            <head>Blog URL</head>
-                        </tag>
-                        <tag>
-                            <name>goal</name>
-                            <placement>t</placement>
-                            <head>Maven goal</head>
-                        </tag>
-                        <tag>
-                            <name>parameter</name>
-                            <placement>f</placement>
-                            <head>Mojo Parameter</head>
-                        </tag>
-                    </tags>
 				</configuration>
 				<reportSets>
 					<reportSet>
@@ -285,36 +292,27 @@ This allows bamboo integration with other systems that use maven version numbers
 				</reportSets>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.16</version>
+				<version>2.19.1</version>
 				<configuration>
+					<argLine>-Dnashorn.args="--no-deprecation-warning"</argLine>
 				</configuration>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.5</version>
 				<configuration>
 					<linkJavadoc>true</linkJavadoc>
-					<javadocDir>target/site/apidocs</javadocDir>
+					<javadocDir>target/site/apidocs</javadocDir> 
 				</configuration>
 			</plugin>
 
 		</plugins>
 	</reporting>
+	
 
 
 	<distributionManagement>
