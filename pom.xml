@@ -76,7 +76,7 @@ This allows bamboo integration with other systems that use maven version numbers
 	<scm>
 	<connection>scm:git:ssh://git@gitlab.dev.randomnoun:2222/randomnoun/vmaint-maven-plugin.git</connection>
 	<developerConnection>scm:git:ssh://git@gitlab.dev.randomnoun:2222/randomnoun/vmaint-maven-plugin.git</developerConnection>
-	<url>http://gitlab.dev.randomonun/randomnoun/vmaint-maven-plugin</url>
+	<url>http://gitlab.dev.randomnoun/randomnoun/vmaint-maven-plugin</url>
   </scm>
 
 	<issueManagement>
@@ -318,25 +318,19 @@ This allows bamboo integration with other systems that use maven version numbers
 
 
 	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>randomnoun releases</name>
-			<url>http://nexus2.dev.randomnoun:8082/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>randomnoun snapshots</name>
-			<url>http://nexus2.dev.randomnoun:8082/nexus/content/repositories/snapshots/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-		<site>
-			<id>site</id>
-			<name>vmaint-maven-plugin Website</name>
-			<!-- this will be externally visible at http://code.randomnoun.com/vmaint-maven-plugin -->
-			<url>scp://code.randomnoun.com/var/www/code.randomnoun.com/vmaint-maven-plugin/</url>
-		</site>
-
+	    <repository>
+	        <id>releases</id>
+	        <name>randomnoun releases</name>
+	        <url>http://nexus2.dev.randomnoun/nexus/content/repositories/releases/</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>snapshots</id>
+	        <name>randomnoun snapshots</name>
+	        <url>http://nexus2.dev.randomnoun/nexus/content/repositories/snapshots/</url>
+	        <uniqueVersion>false</uniqueVersion>
+	    </snapshotRepository>
 	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
