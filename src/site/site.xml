@@ -128,7 +128,7 @@
     </menu>
     <menu name="Documentation" inherit="bottom">
       <item name="Usage" href="index.html" />
-      <item name="Javadocs" href="apidocs/index.html" />
+      <item name="Javadocs" href="apidocs/index.html?overview-summary.html" />
       <item name="Code coverage" href="cobertura/index.html" />
       <item name="Source XRef" href="xref/index.html" />
       <item name="Test XRef" href="xref-test/index.html" />
