@@ -1,11 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>com.randomnoun.maven.plugins</groupId>
 	<artifactId>vmaint-maven-plugin</artifactId>
 	<version>1.1.2-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
+	
 	<description>Should be run at the beginning of a build when run on the bamboo build server.
-
 This plugin will label the current bamboo build with the maven version number of the maven project being built.
 
 This allows bamboo integration with other systems that use maven version numbers rather than bamboo builds to define the 'co-ordinates' of an artifact.</description>
@@ -257,7 +258,7 @@ This allows bamboo integration with other systems that use maven version numbers
 
 
 
-<reporting>
+	<reporting>
 		<plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
